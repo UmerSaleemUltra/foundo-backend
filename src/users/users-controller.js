@@ -345,8 +345,8 @@ exports.sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
             return res?.status(400).json({ status: false, message: "Email not exist" });
         }
 
-        const token = jwt.sign({ id: user?._id }, process.env.JWT_SECRET_KEY, {
-            expiresIn: process.env.JWT_EXPIRES,
+        const token = jwt.sign({ id: user?._id }, "SMHAU171175", {
+            expiresIn: "15m",
         });
 
         let mail_data = {
@@ -372,7 +372,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
         if (!token) {
             next(new ErrorHandler("No token found", 400));
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const decoded = jwt.verify(token, "SMHAU171175");
         if (!decoded) {
             next(new ErrorHandler("Token is not valid", 400));
         }
