@@ -5,15 +5,15 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: "info@leegal.co",
-        pass: "@Leegal2025",
+        user: "hello@umersaleem.com",
+        pass: "@Umer2024",
     },
 });
 
-const sendMail = ({ to, subject, html, from = "info@leegal.co" }) => {
+const sendMail = ({ to, subject, html, from = "hello@umersaleem.com" }) => {
     return new Promise((resolve, reject) => {
         const mailOptions = {
-            from: 'Leegal <info@leegal.co>',
+            from: 'Leegal <hello@umersaleem.com>',
             to,
             subject,
             html,
@@ -676,7 +676,7 @@ exports.orderReceived = async (data) => {
                 </p>
 
                 <p>
-                If you have any questions in the meantime, don’t hesitate to reach out to our support team at info@leegal.co or directly through your dashboard.
+                If you have any questions in the meantime, don’t hesitate to reach out to our support team at hello@umersaleem.com or directly through your dashboard.
                 </p>
 
                 <p>
@@ -840,7 +840,7 @@ exports.sharedDocument = async (data) => {
                 </p>
 
                 <p>
-                If you have any questions or need assistance accessing your dashboard, please don’t hesitate to contact our support team at info@leegal.co.
+                If you have any questions or need assistance accessing your dashboard, please don’t hesitate to contact our support team at hello@umersaleem.com.
                 </p>
 
                 <p>
@@ -1019,7 +1019,7 @@ exports.sendResetPasswordUser = async (data) => {
                     </div>
 
                     <p style="font-size: 16px;">
-                        If you did not request a password reset, please ignore this email or contact our support team (info@leegal.co) if you have any concerns.
+                        If you did not request a password reset, please ignore this email or contact our support team (hello@umersaleem.com) if you have any concerns.
                     </p>
 
                     <p style="font-size: 16px;">
@@ -1352,7 +1352,7 @@ exports.sendCompanyFormedMail = async (data) => {
                 </ul>
 
                 <p>
-                If you have any questions or need guidance on the next steps for growing and managing your business, don’t hesitate to contact us at info@leegal.co or through your dashboard.
+                If you have any questions or need guidance on the next steps for growing and managing your business, don’t hesitate to contact us at hello@umersaleem.com or through your dashboard.
                 </p>
 
                 <p>
