@@ -1,10 +1,11 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const crypto = require('crypto');
-const axios = require('axios');
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import crypto from "crypto";
+import axios from "axios";
 
-exports.createHash = catchAsyncErrors(async (req, res, next) => {
+
+export const createHash = catchAsyncErrors(async (req, res, next) => {
     try {
         const { name, email, amount, productinfo } = req.body;
 
@@ -28,7 +29,7 @@ exports.createHash = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.success = catchAsyncErrors(async (req, res, next) => {
+export const success = catchAsyncErrors(async (req, res, next) => {
     try {
         console.log('req.body', req.body)
         res.redirect('https://www.leegal.co/success')
@@ -38,7 +39,7 @@ exports.success = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.failure = catchAsyncErrors(async (req, res, next) => {
+export const failure = catchAsyncErrors(async (req, res, next) => {
     try {
         console.log('req.body', req.body)
         res.redirect('https://www.leegal.co/failure')
@@ -48,7 +49,7 @@ exports.failure = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.createHashForServices = catchAsyncErrors(async (req, res, next) => {
+export const createHashForServices = catchAsyncErrors(async (req, res, next) => {
     try {
         const { name, email, amount, productinfo } = req.body;
 

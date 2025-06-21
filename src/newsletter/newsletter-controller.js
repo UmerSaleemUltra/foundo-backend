@@ -1,10 +1,11 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const Newsletter = require("./newsletter-modal");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const { subDays, startOfDay, endOfDay } = require("date-fns");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import Newsletter from "./newsletter-modal.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import { subDays, startOfDay, endOfDay } from "date-fns";
 
-exports.createNewsletter = catchAsyncErrors(async (req, res, next) => {
+
+export const createNewsletter = catchAsyncErrors(async (req, res, next) => {
     try {
         const newNewsletter = await Newsletter.create(req.body);
         sendResponse(res, 200, "Newsletter created successfully.", newNewsletter);
@@ -14,7 +15,7 @@ exports.createNewsletter = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.getAllNewsletters = catchAsyncErrors(async (req, res, next) => {
+export const getAllNewsletters = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { pageNumber } = req.query;
@@ -37,7 +38,7 @@ exports.getAllNewsletters = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.getExportedNewslettersData = catchAsyncErrors(async (req, res, next) => {
+export const getExportedNewslettersData = catchAsyncErrors(async (req, res, next) => {
     const days = parseInt(req.body.days);
 
     try {

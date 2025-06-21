@@ -1,7 +1,9 @@
-const express = require("express");
+import express from "express";
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+
 const router = express.Router();
-const multer = require("multer");
-const { v4: uuidv4 } = require('uuid');
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,11 +16,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const { uploadPassport, getPassport} = require("./passport-controller");
-
+import { uploadPassport, getPassport } from "./passport-controller.js";
 
 router.post("/upload-passport", upload.single("file"), uploadPassport);
 
 router.get("/get-passport/:id",  getPassport);
 
-module.exports = router;
+export default router

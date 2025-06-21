@@ -1,14 +1,20 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const ShortUniqueId = require("short-unique-id");
-const User = require("./users-model");
-const Otp = require("../otp/otp-model");
-const sendToken = require("../../utils/jwtToken");
-const { sendResetPasswordUser, sendOtpForUserSignup, newAccountCreated, orderReceived } = require("../../utils/mail");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const axios = require("axios");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import ShortUniqueId from "short-unique-id";
+import User from "./users-model.js";
+import Otp from "../otp/otp-model.js";
+import sendToken from "../../utils/jwtToken.js";
+import {
+  sendResetPasswordUser,
+  sendOtpForUserSignup,
+  newAccountCreated,
+  orderReceived,
+} from "../../utils/mail.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import axios from "axios";
+
 
 async function convertUSDtoINR() {
     try {
@@ -21,7 +27,7 @@ async function convertUSDtoINR() {
     }
 }
 
-exports.sendOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
+export const sendOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email } = req.body;
 
@@ -46,7 +52,7 @@ exports.sendOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.verifyOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
+export const verifyOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, otp, password } = req.body;
 
@@ -82,7 +88,7 @@ exports.verifyOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.userLogin = catchAsyncErrors(async (req, res, next) => {
+export const userLogin = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -113,7 +119,7 @@ exports.userLogin = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.sendOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
+export const sendOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
     try {
         const { phone } = req.body;
 
@@ -140,7 +146,7 @@ exports.sendOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.verifyOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
+export const verifyOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
     try {
         const { phone, otp } = req.body;
 
@@ -163,7 +169,7 @@ exports.verifyOtpToUserLogin = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.createUser = catchAsyncErrors(async (req, res, next) => {
+export const createUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const { password } = req.body;
 
@@ -202,7 +208,7 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.getUser = catchAsyncErrors(async (req, res, next) => {
+export const getUser = catchAsyncErrors(async (req, res, next) => {
     try {
         if (req.user) {
             sendResponse(res, 200, "User Fetched Successfully", req.user);
@@ -215,7 +221,7 @@ exports.getUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+export const updateUser = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const userId = req.params.id;
@@ -237,7 +243,7 @@ exports.updateUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const userId = req.params.id;
 
@@ -254,7 +260,7 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
     try {
         const { pageNumber } = req.query;
         const totalUsers = await User.countDocuments();
@@ -278,7 +284,7 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.getAllUsersForOption = catchAsyncErrors(async (req, res, next) => {
+export const getAllUsersForOption = catchAsyncErrors(async (req, res, next) => {
     try {
         const users = await User.find({})
             .sort({ created_at: -1 })
@@ -290,7 +296,7 @@ exports.getAllUsersForOption = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.sendOtpVerifyUserPhone = catchAsyncErrors(async (req, res, next) => {
+export const sendOtpVerifyUserPhone = catchAsyncErrors(async (req, res, next) => {
     try {
         const { phone } = req.body;
 
@@ -311,7 +317,7 @@ exports.sendOtpVerifyUserPhone = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.verifyOtpToUserPhone = catchAsyncErrors(async (req, res, next) => {
+export const verifyOtpToUserPhone = catchAsyncErrors(async (req, res, next) => {
     try {
         const { otp, phone } = req.body;
 
@@ -335,7 +341,7 @@ exports.verifyOtpToUserPhone = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
+export const sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { email } = req.body;
@@ -365,7 +371,7 @@ exports.sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         const { token, new_password } = req.body;
 
@@ -396,7 +402,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.searchUser = catchAsyncErrors(async (req, res, next) => {
+export const searchUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const { term } = req.params;
 
@@ -432,7 +438,7 @@ exports.searchUser = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.changeUserPassword = catchAsyncErrors(async (req, res, next) => {
+export const changeUserPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         const userId = req.params.id;
         const { currentPassword, newPassword } = req.body;
@@ -462,7 +468,7 @@ exports.changeUserPassword = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.changeUserPasswordByAdmin = catchAsyncErrors(async (req, res, next) => {
+export const changeUserPasswordByAdmin = catchAsyncErrors(async (req, res, next) => {
     try {
         const userId = req.params.id;
         const { newPassword } = req.body;
@@ -485,7 +491,7 @@ exports.changeUserPasswordByAdmin = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.changeUserEmail = catchAsyncErrors(async (req, res, next) => {
+export const changeUserEmail = catchAsyncErrors(async (req, res, next) => {
     try {
         const userId = req.params.id;
         const { newEmail } = req.body;
@@ -515,7 +521,7 @@ exports.changeUserEmail = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.verifyOtpForChangeEmail = catchAsyncErrors(async (req, res, next) => {
+export const verifyOtpForChangeEmail = catchAsyncErrors(async (req, res, next) => {
     try {
         const { new_email, otp, user_id } = req.body;
 
@@ -543,7 +549,7 @@ exports.verifyOtpForChangeEmail = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.getExchangeRate = catchAsyncErrors(async (req, res, next) => {
+export const getExchangeRate = catchAsyncErrors(async (req, res, next) => {
     try {
         const exchangeRate = await convertUSDtoINR();
         sendResponse(res, 200, "Exchange Rate Fetched Successfully", exchangeRate);

@@ -1,33 +1,42 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const path = require("path");
+
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+import db from "./Config/db.js"
+
+
+db.connection.once('open', () => {
+  console.log('Database connected successfully!');
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 
-// built-in middlewares
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(morgan("dev"));
-app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-console.log({ filePath: path.join(__dirname + "/uploads") });
+console.log({ filePath: path.join(__dirname, "/uploads") });
 
-//import routes
-const connectDatabase = require("./db/database");
+// Import routes
+import userRoutes from "./src/users/users-routes.js";
+import companyRoutes from "./src/company/company-routes.js";
+import documentRoutes from "./src/document/document-routes.js";
+import couponRoutes from "./src/coupon/coupon-routes.js";
+import servicePurchasedRoutes from "./src/service-purchased/service-purchased-routes.js";
+import userTransactionsRoutes from "./src/user-transactions/user-transactions-routes.js";
+import superAdminRoutes from "./src/super-admin/super-admin-routes.js";
+import testimonialRoutes from "./src/testimonials/testimonials-routes.js";
+import newsletterRoutes from "./src/newsletter/newsletter-routes.js";
+import payRoutes from "./src/payu/payu-routes.js";
+import passportRoutes from "./src/passport/passport-routes.js";
 
-const userRoutes = require("./src/users/users-routes");
-const companyRoutes = require("./src/company/company-routes");
-const documentRoutes = require("./src/document/document-routes");
-const couponRoutes = require("./src/coupon/coupon-routes");
-const servicePurchasedRoutes = require("./src/service-purchased/service-purchased-routes");
-const userTransactionsRoutes = require("./src/user-transactions/user-transactions-routes");
-const superAdminRoutes = require("./src/super-admin/super-admin-routes");
-const testimonialRoutes = require("./src/testimonials/testimonials-routes");
-const newsletterRoutes = require("./src/newsletter/newsletter-routes");
-const payRoutes = require("./src/payu/payu-routes");
-const passportRoutes = require("./src/passport/passport-routes");
-
+// Use routes
 app.use("/api/user", userRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/document", documentRoutes);
@@ -40,14 +49,12 @@ app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/payu", payRoutes);
 
-//connect db
-connectDatabase();
 
-const PORT = 3000
 
-//create server//
-const server = app.listen(PORT, () => {
+const PORT = 3000;
+
+app.listen(PORT, () => {
   console.log("Server is running on port", PORT);
 });
 
-module.exports = app;
+export default app;

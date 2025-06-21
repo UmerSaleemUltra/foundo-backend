@@ -1,18 +1,12 @@
-const firebaseAdmin = require('firebase-admin');
+import firebaseAdmin from 'firebase-admin';
 
-//converting base64 file to json file
+// Convert base64 to JSON
 const base64Decoded = Buffer.from(process.env.FIREBASE_SECRET_FILE, 'base64').toString('utf8');
 const decodedJson = JSON.parse(base64Decoded);
 
-
-
-const serviceAccount = decodedJson;
-
-//firebase configuration
+// Firebase config
 const firebaseConfig = firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(serviceAccount)
+  credential: firebaseAdmin.credential.cert(decodedJson),
 });
 
-console.log()
-
-module.exports=firebaseConfig
+export default firebaseConfig;

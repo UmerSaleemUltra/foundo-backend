@@ -1,9 +1,10 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const Coupon = require("./coupon-model");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import Coupon from "./coupon-model.js";
 
-exports.createCoupon = catchAsyncErrors(async (req, res, next) => {
+
+export const createCoupon = catchAsyncErrors(async (req, res, next) => {
     try {
         const newCoupon = await Coupon.create(req.body);
         sendResponse(res, 200, "Coupon Created Successfully", newCoupon);
@@ -12,7 +13,7 @@ exports.createCoupon = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getAllCoupon = catchAsyncErrors(async (req, res, next) => {
+export const getAllCoupon = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { pageNumber } = req.query;
@@ -35,7 +36,7 @@ exports.getAllCoupon = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.getCoupon = catchAsyncErrors(async (req, res, next) => {
+export const getCoupon = catchAsyncErrors(async (req, res, next) => {
     try {
         const { coupon_code } = req.body;
 
@@ -54,7 +55,7 @@ exports.getCoupon = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.deleteCouponByID = catchAsyncErrors(async (req, res, next) => {
+export const deleteCouponByID = catchAsyncErrors(async (req, res, next) => {
     try {
         const couponID = req.params.id;
 
@@ -72,7 +73,7 @@ exports.deleteCouponByID = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.updateCouponByID = catchAsyncErrors(async (req, res, next) => {
+export const updateCouponByID = catchAsyncErrors(async (req, res, next) => {
     try {
         const couponID = req.params.id;
 
@@ -94,7 +95,7 @@ exports.updateCouponByID = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.searchCoupons = catchAsyncErrors(async (req, res, next) => {
+export const searchCoupons = catchAsyncErrors(async (req, res, next) => {
     try {
         const { term } = req.params;
 

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const couponSchema = new Schema({
     coupon_code: {
@@ -37,4 +37,4 @@ couponSchema.pre('findOneAndUpdate', function (next) {
 
 const Coupon = mongoose.model('Coupon', couponSchema);
 
-module.exports = Coupon;
+export default Coupon;

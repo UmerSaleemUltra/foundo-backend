@@ -1,9 +1,10 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const Testimonial = require("./testimonials-model");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import Testimonial from "./testimonials-model.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
 
-exports.createTestimonial = catchAsyncErrors(async (req, res, next) => {
+
+export const createTestimonial = catchAsyncErrors(async (req, res, next) => {
     try {
         const newTestimonial = await Testimonial.create(req.body);
         sendResponse(res, 200, "Testimonial Created successfully.", newTestimonial);
@@ -12,7 +13,7 @@ exports.createTestimonial = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getAllTestimonials = catchAsyncErrors(async (req, res, next) => {
+export const getAllTestimonials = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { pageNumber } = req.query;
@@ -36,7 +37,7 @@ exports.getAllTestimonials = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.getTestimonialByUser = catchAsyncErrors(async (req, res, next) => {
+export const getTestimonialByUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const user_id = req.params.id;
         const testimonial = await Testimonial.find({ user_id: user_id })
@@ -46,7 +47,7 @@ exports.getTestimonialByUser = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.deleteTestimonial = catchAsyncErrors(async (req, res, next) => {
+export const deleteTestimonial = catchAsyncErrors(async (req, res, next) => {
     try {
         const testimonialID = req.params.id;
 
@@ -64,7 +65,7 @@ exports.deleteTestimonial = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.updateTestimonial = catchAsyncErrors(async (req, res, next) => {
+export const updateTestimonial = catchAsyncErrors(async (req, res, next) => {
     try {
         const testimonialID = req.params.id;
 

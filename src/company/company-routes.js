@@ -1,7 +1,10 @@
-const express = require("express");
+import express from "express";
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+
 const router = express.Router();
-const multer = require("multer");
-const { v4: uuidv4 } = require('uuid');
+
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,7 +17,23 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const { createCompany, updateCompany, deleteCompany, getAllCompany, getCompanyByUser, getCompanyStats, createMember, updateMember, updateMemberWithPassport,deleteMember, searchCompany, sendCompanyFormed, createPhonePePayment, checkPhonePePaymentStatus, getAllCompanyForOption } = require("./company-controller");
+import {
+  createCompany,
+  updateCompany,
+  deleteCompany,
+  getAllCompany,
+  getCompanyByUser,
+  getCompanyStats,
+  createMember,
+  updateMember,
+  updateMemberWithPassport,
+  deleteMember,
+  searchCompany,
+  sendCompanyFormed,
+  createPhonePePayment,
+  checkPhonePePaymentStatus,
+  getAllCompanyForOption
+} from "./company-controller.js";
 
 
 router.post("/create-company", upload.any(), createCompany);
@@ -49,4 +68,4 @@ router.get("/get-all-companies-for-options", getAllCompanyForOption);
 
 router.post("/upload-passport/:id", upload.single("passport"), updateMemberWithPassport);
 
-module.exports = router;
+export default router

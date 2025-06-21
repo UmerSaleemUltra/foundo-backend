@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+
 const { Schema } = mongoose;
-const jwt = require("jsonwebtoken");
 
 const companySchema = new Schema({
     user_id: {
@@ -173,4 +174,4 @@ companySchema.pre('save', function (next) {
 
 const Company = mongoose.model('Company', companySchema);
 
-module.exports = Company;
+export default Company;

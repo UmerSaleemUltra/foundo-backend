@@ -1,5 +1,10 @@
-const { Router } = require("express");
-const { createHash, success, failure,createHashForServices } = require("./payu-controller");
+import { Router } from "express";
+import {
+  createHash,
+  success,
+  failure,
+  createHashForServices
+} from "./payu-controller.js";
 
 const router = Router();
 
@@ -11,4 +16,4 @@ router.post("/failure", failure);
 
 router.post("/hash-for-services", createHashForServices);
 
-module.exports = router;
+export default router

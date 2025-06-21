@@ -1,18 +1,17 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const ShortUniqueId = require("short-unique-id");
-const Company = require("./company-model");
-const ServicePurchased = require("../service-purchased/service-purchased-model");
-const Documents = require("../document/document-model");
-const fs = require("fs");
-const { orderReceived, sendOrderToAdmin, sendCompanyFormedMail } = require("../../utils/mail");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import ShortUniqueId from "short-unique-id";
+import Company from "./company-model.js";
+import ServicePurchased from "../service-purchased/service-purchased-model.js";
+import Documents from "../document/document-model.js";
+import fs from "fs";
+import { orderReceived, sendOrderToAdmin, sendCompanyFormedMail } from "../../utils/mail.js";
+import crypto from "crypto";
+import axios from "axios";
 
-const crypto = require('crypto');
-const axios = require('axios');
 
-
-exports.createCompany = catchAsyncErrors(async (req, res, next) => {
+export const createCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const { members, addons, services, user_id, is_super_admin, email, name } = req.body;
 
@@ -95,7 +94,8 @@ exports.createCompany = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.updateCompany = catchAsyncErrors(async (req, res, next) => {
+
+export const updateCompany = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const companyId = req.params.id;
@@ -117,7 +117,7 @@ exports.updateCompany = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.sendCompanyFormed = catchAsyncErrors(async (req, res, next) => {
+export const sendCompanyFormed = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { company_name, name, designator, email } = req.body;
@@ -136,7 +136,7 @@ exports.sendCompanyFormed = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.deleteCompany = catchAsyncErrors(async (req, res, next) => {
+export const deleteCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id;
 
@@ -152,7 +152,7 @@ exports.deleteCompany = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getAllCompany = catchAsyncErrors(async (req, res, next) => {
+export const getAllCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const { pageNumber } = req.query;
         const totalCompany = await Company.countDocuments();
@@ -175,7 +175,7 @@ exports.getAllCompany = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getCompanyByUser = catchAsyncErrors(async (req, res, next) => {
+export const getCompanyByUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const userId = req.params.id
 
@@ -189,7 +189,7 @@ exports.getCompanyByUser = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getCompanyStats = catchAsyncErrors(async (req, res, next) => {
+export const getCompanyStats = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id
 
@@ -207,7 +207,7 @@ exports.getCompanyStats = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.createMember = catchAsyncErrors(async (req, res, next) => {
+export const createMember = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id;
 
@@ -231,7 +231,7 @@ exports.createMember = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.updateMember = catchAsyncErrors(async (req, res, next) => {
+export const updateMember = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const companyId = req.params.id;
@@ -256,7 +256,7 @@ exports.updateMember = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.updateMemberWithPassport = catchAsyncErrors(async (req, res, next) => {
+export const updateMemberWithPassport = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id;
 
@@ -309,7 +309,7 @@ exports.updateMemberWithPassport = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.deleteMember = catchAsyncErrors(async (req, res, next) => {
+export const deleteMember = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const companyId = req.params.id;
@@ -334,7 +334,7 @@ exports.deleteMember = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.searchCompany = catchAsyncErrors(async (req, res, next) => {
+export const searchCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const { term } = req.params;
 
@@ -380,7 +380,7 @@ exports.searchCompany = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
+export const createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const salt_key = 'fec485a7-0ef4-47d8-ad85-f1925c931c38'
@@ -443,7 +443,7 @@ exports.createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.checkPhonePePaymentStatus = catchAsyncErrors(async (req, res, next) => {
+export const checkPhonePePaymentStatus = catchAsyncErrors(async (req, res, next) => {
 
     const salt_key = 'fec485a7-0ef4-47d8-ad85-f1925c931c38'
 
@@ -481,7 +481,7 @@ exports.checkPhonePePaymentStatus = catchAsyncErrors(async (req, res, next) => {
         });
 });
 
-exports.getAllCompanyForOption = catchAsyncErrors(async (req, res, next) => {
+export const getAllCompanyForOption = catchAsyncErrors(async (req, res, next) => {
     try {
         const companies = await Company.find({})
             .sort({ created_at: -1 })

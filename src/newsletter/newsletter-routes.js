@@ -1,6 +1,12 @@
-const express = require('express');
-const { createNewsletter, getAllNewsletters, getExportedNewslettersData } = require('./newsletter-controller');
+import express from "express";
+import {
+  createNewsletter,
+  getAllNewsletters,
+  getExportedNewslettersData
+} from "./newsletter-controller.js";
+
 const router = express.Router();
+
 
 router.post("/create-newsletter", createNewsletter);
 
@@ -8,4 +14,4 @@ router.get("/get-all-newsletters", getAllNewsletters);
 
 router.post("/get-export-data", getExportedNewslettersData);
 
-module.exports = router;
+export default router

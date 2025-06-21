@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 const servicePurchasedSchema = new Schema({
@@ -63,4 +64,4 @@ servicePurchasedSchema.pre('findOneAndUpdate', function (next) {
 
 const ServicePurchased = mongoose.model('ServicePurchased', servicePurchasedSchema);
 
-module.exports = ServicePurchased;
+export default ServicePurchased;

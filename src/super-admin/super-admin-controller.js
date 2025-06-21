@@ -1,19 +1,25 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const SuperAdmin = require("./super-admin-model");
-const bcrypt = require("bcryptjs");
-const sendToken = require("../../utils/jwtToken");
-const ShortUniqueId = require("short-unique-id");
-const { sendEmailUpdateOtp, sendResetPasswordSuperAdmin, sendContactMessage, sendEinMail } = require("../../utils/mail");
-const jwt = require("jsonwebtoken");
-const Documents = require("../document/document-model");
-const Company = require("../company/company-model");
-const User = require("../users/users-model");
-const Testimonial = require("../testimonials/testimonials-model");
-const UserTransaction = require("../user-transactions/user-transactions-model");
+import catchAsyncErrors from '../../middleware/catchAsyncErrors.js';
+import sendResponse from '../../middleware/response.js';
+import ErrorHandler from '../../utils/ErrorHandler.js';
+import SuperAdmin from './super-admin-model.js';
+import bcrypt from 'bcryptjs';
+import sendToken from '../../utils/jwtToken.js';
+import ShortUniqueId from 'short-unique-id';
+import {
+  sendEmailUpdateOtp,
+  sendResetPasswordSuperAdmin,
+  sendContactMessage,
+  sendEinMail
+} from '../../utils/mail.js';
+import jwt from 'jsonwebtoken';
+import Documents from '../document/document-model.js';
+import Company from '../company/company-model.js';
+import User from '../users/users-model.js';
+import Testimonial from '../testimonials/testimonials-model.js';
+import UserTransaction from '../user-transactions/user-transactions-model.js';
 
-exports.createSuperAdmin = catchAsyncErrors(async (req, res, next) => {
+
+export const createSuperAdmin = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -34,7 +40,7 @@ exports.createSuperAdmin = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.superAdminLogin = catchAsyncErrors(async (req, res, next) => {
+export const superAdminLogin = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -58,7 +64,7 @@ exports.superAdminLogin = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.updateSuperAdminByID = catchAsyncErrors(async (req, res, next) => {
+export const updateSuperAdminByID = catchAsyncErrors(async (req, res, next) => {
     try {
         const superAdminID = req.params.id;
 
@@ -77,7 +83,7 @@ exports.updateSuperAdminByID = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.changePassword = catchAsyncErrors(async (req, res, next) => {
+export const changePassword = catchAsyncErrors(async (req, res, next) => {
     try {
         const superAdminID = req.params.id;
         const { currentPassword, newPassword } = req.body;
@@ -107,7 +113,7 @@ exports.changePassword = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
+export const sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { email } = req.body;
@@ -132,7 +138,7 @@ exports.sendResetPasswordEmail = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         const { token, new_password } = req.body;
 
@@ -168,7 +174,7 @@ const getMonthRange = (monthOffset) => {
 };
 
 
-exports.getDashboardStats = catchAsyncErrors(async (req, res, next) => {
+export const getDashboardStats = catchAsyncErrors(async (req, res, next) => {
     try {
         const companies = await Company.countDocuments({});
         const documents = await Documents.countDocuments({});
@@ -302,7 +308,7 @@ exports.getDashboardStats = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.sendContactMessage = catchAsyncErrors(async (req, res, next) => {
+export const handleContactMessage = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, message, first_name, last_name, phone } = req.body;
 
@@ -321,7 +327,7 @@ exports.sendContactMessage = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.sendEinProceededMail = catchAsyncErrors(async (req, res, next) => {
+export const sendEinProceededMail = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, first_name, last_name, company_name, designator, company_id } = req.body;
 
@@ -348,7 +354,7 @@ exports.sendEinProceededMail = catchAsyncErrors(async (req, res, next) => {
 
 
 
-exports.accessUser = catchAsyncErrors(async (req, res, next) => {
+export const accessUser = catchAsyncErrors(async (req, res, next) => {
     try {
         const { email, pin } = req.body;
 

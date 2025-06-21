@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const User = require('../src/users/users-model');
-const ErrorHandler = require('../utils/ErrorHandler');
-const SuperAdmin = require('../src/super-admin/super-admin-model');
+import jwt from 'jsonwebtoken'
+import User from '../src/users/users-model.js';
+import ErrorHandler from '../utils/ErrorHandler.js';
+import SuperAdmin from '../src/super-admin/super-admin-model.js';
 
 const authenticate = async (req, res, next) => {
     try {
@@ -37,4 +37,4 @@ const authenticate = async (req, res, next) => {
     }
 }
 
-module.exports = authenticate;
+export default authenticate;

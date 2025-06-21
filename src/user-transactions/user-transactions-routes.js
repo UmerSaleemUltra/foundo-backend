@@ -1,7 +1,13 @@
-const { Router } = require("express");
-const { createUserTransaction, getAllUserTransactions, searchUserTransactions, getAllUserTransactionsByUser,updateUserTransaction,
-    deleteUserTransaction
- } = require("./user-transactions-controller");
+import { Router } from 'express';
+import {
+  createUserTransaction,
+  getAllUserTransactions,
+  searchUserTransactions,
+  getAllUserTransactionsByUser,
+  updateUserTransaction,
+  deleteUserTransaction
+} from './user-transactions-controller.js';
+
 
 const router = Router();
 
@@ -17,4 +23,4 @@ router.post("/update-user-transaction/:id", updateUserTransaction);
 
 router.post("/delete-user-transaction/:id", deleteUserTransaction);
 
-module.exports = router;
+export default router

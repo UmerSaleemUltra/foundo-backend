@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const passportSchema = new Schema({
     member_id: {
@@ -29,4 +29,4 @@ passportSchema.pre('save', function (next) {
 
 const Passport = mongoose.model('Passport', passportSchema);
 
-module.exports = Passport;
+export default Passport;

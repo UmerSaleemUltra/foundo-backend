@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
     host: "smtpout.secureserver.net",
@@ -31,7 +31,7 @@ console.log("error", error);
 };
 
 
-exports.sendEmailUpdateOtp = async (data) => {
+export const sendEmailUpdateOtp = async (data) => {
     const { name, otp, email } = data;
 
     const body = `
@@ -140,7 +140,7 @@ exports.sendEmailUpdateOtp = async (data) => {
 };
 
 
-exports.sendResetPasswordSuperAdmin = async (data) => {
+export const sendResetPasswordSuperAdmin = async (data) => {
     const { email, token } = data;
     const resetLink =
         process.env.BASE_URL + `/admin/reset-password/${token}`;
@@ -251,7 +251,7 @@ exports.sendResetPasswordSuperAdmin = async (data) => {
 };
 
 
-exports.sendOtpForUserSignup = async (data) => {
+export const sendOtpForUserSignup = async (data) => {
     const { otp, email } = data;
 
     const body = `
@@ -355,7 +355,7 @@ exports.sendOtpForUserSignup = async (data) => {
 };
 
 
-exports.newAccountCreated = async (data) => {
+export const newAccountCreated = async (data) => {
     const { first_name, last_name, email } = data;
 
     const body = `
@@ -523,7 +523,7 @@ exports.newAccountCreated = async (data) => {
 };
 
 
-exports.orderReceived = async (data) => {
+export const orderReceived = async (data) => {
     const { first_name, last_name, email, company_name, designator, state, selected_plan, paid_amount } = data;
 
     const body = `
@@ -701,7 +701,7 @@ exports.orderReceived = async (data) => {
 };
 
 
-exports.sharedDocument = async (data) => {
+export const sharedDocument = async (data) => {
     const { first_name, last_name, company_name, email, document_name } = data;
 
     const body = `
@@ -865,7 +865,7 @@ exports.sharedDocument = async (data) => {
 };
 
 
-exports.sendResetPasswordUser = async (data) => {
+export const sendResetPasswordUser = async (data) => {
     const { email, token, first_name, last_name } = data;
     const resetLink = process.env.BASE_URL + `/reset-password/${token}`;
 
@@ -1043,7 +1043,7 @@ exports.sendResetPasswordUser = async (data) => {
 };
 
 
-exports.sendOrderToAdmin = async (data) => {
+export const sendOrderToAdmin = async (data) => {
     const { first_name, last_name, email, company_name, designator, state, selected_plan, paid_amount } = data;
 
     const body = `
@@ -1206,7 +1206,7 @@ exports.sendOrderToAdmin = async (data) => {
 };
 
 
-exports.sendCompanyFormedMail = async (data) => {
+export const sendCompanyFormedMail = async (data) => {
     const { name, designator, email, company_name } = data;
 
     const body = `
@@ -1380,7 +1380,7 @@ exports.sendCompanyFormedMail = async (data) => {
 
 
 
-exports.sendContactMessage = async (data) => {
+export const sendContactMessage = async (data) => {
     const { first_name, last_name, email, phone, message } = data;
 
     const body = `
@@ -1539,7 +1539,7 @@ exports.sendContactMessage = async (data) => {
 };
 
 
-exports.sendEinMail = async (data) => {
+export const sendEinMail = async (data) => {
     const { first_name, last_name, email, company_name, designator } = data;
 
     const body = `

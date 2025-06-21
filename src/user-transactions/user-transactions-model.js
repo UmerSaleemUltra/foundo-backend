@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const userTransactionSchema = new Schema({
     user_id: {
@@ -54,4 +54,4 @@ userTransactionSchema.pre('findOneAndUpdate', function (next) {
 
 const UserTransaction = mongoose.model('UserTransaction', userTransactionSchema);
 
-module.exports = UserTransaction;
+export default UserTransaction;

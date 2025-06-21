@@ -1,11 +1,12 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const { sharedDocument } = require("../../utils/mail");
-const Document = require("./document-model");
-const fs = require("fs");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import { sharedDocument } from "../../utils/mail.js";
+import Document from "./document-model.js";
+import fs from "fs";
 
-exports.createDocument = catchAsyncErrors(async (req, res, next) => {
+
+export const createDocument = catchAsyncErrors(async (req, res, next) => {
     try {
         const fileType = req?.file?.mimetype;
 
@@ -31,7 +32,7 @@ exports.createDocument = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.updateDocument = catchAsyncErrors(async (req, res, next) => {
+export const updateDocument = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const companyId = req.params.id;
@@ -53,7 +54,7 @@ exports.updateDocument = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.deleteDocument = catchAsyncErrors(async (req, res, next) => {
+export const deleteDocument = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id;
 
@@ -78,7 +79,7 @@ exports.deleteDocument = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.getAllDocuments = catchAsyncErrors(async (req, res, next) => {
+export const getAllDocuments = catchAsyncErrors(async (req, res, next) => {
     try {
         const { pageNumber } = req.query;
         const totalDocument = await Document.countDocuments();
@@ -101,7 +102,7 @@ exports.getAllDocuments = catchAsyncErrors(async (req, res, next) => {
 })
 
 
-exports.getDocumentsByCompany = catchAsyncErrors(async (req, res, next) => {
+export const getDocumentsByCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const { pageNumber } = req.query;
         const companyId = req.params.id;
@@ -128,7 +129,7 @@ exports.getDocumentsByCompany = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.getDocumentsNameByCompany = catchAsyncErrors(async (req, res, next) => {
+export const getDocumentsNameByCompany = catchAsyncErrors(async (req, res, next) => {
     try {
         const companyId = req.params.id;
 
@@ -143,7 +144,7 @@ exports.getDocumentsNameByCompany = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.searchDocuments = catchAsyncErrors(async (req, res, next) => {
+export const searchDocuments = catchAsyncErrors(async (req, res, next) => {
     try {
         const { term } = req.params;
 

@@ -1,5 +1,12 @@
-const express = require('express');
-const { createTestimonial, getAllTestimonials, updateTestimonial, deleteTestimonial, getTestimonialByUser } = require('./testimonials-controller');
+import express from 'express';
+import {
+  createTestimonial,
+  getAllTestimonials,
+  updateTestimonial,
+  deleteTestimonial,
+  getTestimonialByUser
+} from './testimonials-controller.js';
+
 const router = express.Router();
 
 
@@ -13,4 +20,4 @@ router.post("/update-testimonial/:id", updateTestimonial);
 
 router.post("/delete-testimonial/:id", deleteTestimonial);
 
-module.exports = router;
+export default router

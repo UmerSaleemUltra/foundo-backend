@@ -1,8 +1,18 @@
-const express = require("express");
-const { createDocument, updateDocument, deleteDocument, getAllDocuments, getDocumentsByCompany, searchDocuments, getDocumentsNameByCompany } = require("./document-controller");
+import express from "express";
+import {
+  createDocument,
+  updateDocument,
+  deleteDocument,
+  getAllDocuments,
+  getDocumentsByCompany,
+  searchDocuments,
+  getDocumentsNameByCompany
+} from "./document-controller.js";
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+
 const router = express.Router();
-const multer = require("multer");
-const { v4: uuidv4 } = require('uuid');
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -30,4 +40,4 @@ router.post("/search-documents/:term", searchDocuments);
 router.get("/get-documents-name-by-company/:id", getDocumentsNameByCompany);
 
 
-module.exports = router;
+export default router

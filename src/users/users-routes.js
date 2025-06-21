@@ -1,9 +1,28 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const authenticate = require("../../middleware/auth");
-const { sendOtpToUserRegister, verifyOtpToUserRegister, userLogin, createUser, updateUser, deleteUser, getAllUsers, getUser, 
-    changeUserPassword, changeUserPasswordByAdmin, sendResetPasswordEmail, resetPassword, searchUser, changeUserEmail, verifyOtpForChangeEmail,getExchangeRate,
-    getAllUsersForOption } = require("./users-controller");
+
+import authenticate from "../../middleware/auth.js";
+
+import {
+  sendOtpToUserRegister,
+  verifyOtpToUserRegister,
+  userLogin,
+  createUser,
+  updateUser,
+  deleteUser,
+  getAllUsers,
+  getUser,
+  changeUserPassword,
+  changeUserPasswordByAdmin,
+  sendResetPasswordEmail,
+  resetPassword,
+  searchUser,
+  changeUserEmail,
+  verifyOtpForChangeEmail,
+  getExchangeRate,
+  getAllUsersForOption
+} from "./users-controller.js";
+
 
 router.post("/send-otp-to-register-user", sendOtpToUserRegister);
 
@@ -39,4 +58,4 @@ router.post("/verify-otp-for-change-email", verifyOtpForChangeEmail);
 
 router.get("/get-exchange-rate", getExchangeRate);
 
-module.exports = router;
+export default router

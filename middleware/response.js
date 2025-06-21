@@ -8,4 +8,4 @@ const sendResponse = (res, statusCode, message, data) => {
         .json({ status: true, message: responseMessage, data: responseData });
 };
 
-module.exports = sendResponse;
+export default sendResponse;

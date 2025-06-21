@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const testimonialsSchema = new Schema({
     user_id: {
@@ -28,4 +28,4 @@ const testimonialsSchema = new Schema({
 // Create the model from the schema
 const Testimonials = mongoose.model('Testimonials', testimonialsSchema);
 
-module.exports = Testimonials;
+export default Testimonials;

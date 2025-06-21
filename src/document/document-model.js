@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const documentSchema = new Schema({
     user_id: {
@@ -49,4 +49,4 @@ documentSchema.pre('save', function (next) {
 
 const Document = mongoose.model('Document', documentSchema);
 
-module.exports = Document;
+export default Document;

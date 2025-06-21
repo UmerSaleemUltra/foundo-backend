@@ -1,5 +1,12 @@
-const { Router } = require("express");
-const { createServicePurchased, getAllServicePurchased, searchServicePurchased, getAllServicePurchasedByCompany, createPhonePePayment, checkPhonePePaymentStatus } = require("../service-purchased/service-purchased-controller");
+import { Router } from "express";
+import {
+  createServicePurchased,
+  getAllServicePurchased,
+  searchServicePurchased,
+  getAllServicePurchasedByCompany,
+  createPhonePePayment,
+  checkPhonePePaymentStatus
+} from "../service-purchased/service-purchased-controller.js";
 
 const router = Router();
 
@@ -16,4 +23,4 @@ router.post("/make-payment", createPhonePePayment);
 router.post("/check-payment-status/:merchantTransactionId/:merchantId", checkPhonePePaymentStatus);
 
 
-module.exports = router;
+export default router

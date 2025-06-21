@@ -1,10 +1,11 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const fs = require("fs");
-const Passport = require("./passport-model");
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import fs from "fs";
+import Passport from "./passport-model.js";
 
-exports.uploadPassport = catchAsyncErrors(async (req, res, next) => {
+
+export const uploadPassport = catchAsyncErrors(async (req, res, next) => {
     try {
         const { member_id } = req.body;
 
@@ -38,7 +39,7 @@ exports.uploadPassport = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getPassport = catchAsyncErrors(async (req, res, next) => {
+export const getPassport = catchAsyncErrors(async (req, res, next) => {
     try {
         const { id } = req.params;
 

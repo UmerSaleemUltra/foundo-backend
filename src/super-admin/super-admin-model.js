@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const jwt = require("jsonwebtoken");
+import mongoose from "mongoose";
+import { Schema } from "mongoose";
+import jwt from "jsonwebtoken";
 
 const superAdminSchema = new Schema({
     name: {
@@ -53,4 +53,4 @@ superAdminSchema.pre('save', function (next) {
 // Create the model from the schema
 const SuperAdmin = mongoose.model('SuperAdmin', superAdminSchema);
 
-module.exports = SuperAdmin;
+export default SuperAdmin;

@@ -1,12 +1,13 @@
-const catchAsyncErrors = require("../../middleware/catchAsyncErrors");
-const sendResponse = require("../../middleware/response");
-const ErrorHandler = require("../../utils/ErrorHandler");
-const ServicePurchased = require("./service-purchased-model");
-const Company = require("../company/company-model");
-const crypto = require('crypto');
-const axios = require('axios');
+import catchAsyncErrors from "../../middleware/catchAsyncErrors.js";
+import sendResponse from "../../middleware/response.js";
+import ErrorHandler from "../../utils/ErrorHandler.js";
+import ServicePurchased from "./service-purchased-model.js";
+import Company from "../company/company-model.js";
+import crypto from "crypto";
+import axios from "axios";
 
-exports.createServicePurchased = catchAsyncErrors(async (req, res, next) => {
+
+export const createServicePurchased = catchAsyncErrors(async (req, res, next) => {
     try {
         const { company_id, user_id, service_name, service_amount } = req.body;
 
@@ -29,7 +30,7 @@ exports.createServicePurchased = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.getAllServicePurchased = catchAsyncErrors(async (req, res, next) => {
+export const getAllServicePurchased = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { pageNumber } = req.query;
@@ -51,7 +52,7 @@ exports.getAllServicePurchased = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.getAllServicePurchasedByCompany = catchAsyncErrors(async (req, res, next) => {
+export const getAllServicePurchasedByCompany = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const { pageNumber } = req.query;
@@ -74,7 +75,7 @@ exports.getAllServicePurchasedByCompany = catchAsyncErrors(async (req, res, next
     }
 })
 
-exports.searchServicePurchased = catchAsyncErrors(async (req, res, next) => {
+export const searchServicePurchased = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const searchString = req.params.term;
@@ -117,7 +118,7 @@ exports.searchServicePurchased = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
+export const createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
     try {
 
         const salt_key = 'fec485a7-0ef4-47d8-ad85-f1925c931c38'
@@ -178,7 +179,7 @@ exports.createPhonePePayment = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-exports.checkPhonePePaymentStatus = catchAsyncErrors(async (req, res, next) => {
+export const checkPhonePePaymentStatus = catchAsyncErrors(async (req, res, next) => {
 
     const salt_key = 'fec485a7-0ef4-47d8-ad85-f1925c931c38'
 
