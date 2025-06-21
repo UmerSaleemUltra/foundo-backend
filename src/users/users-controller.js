@@ -28,28 +28,30 @@ async function convertUSDtoINR() {
 }
 
 export const sendOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
-    try {
-        const { email } = req.body;
+  try {
+    const { email } = req.body;
 
-        const emailExist = await User.findOne({ email: email });
-
-        if (emailExist) {
-            return res.status(400).json({ status: false, message: "Email already exist" })
-        }
-
-        const uniqueNumId = new ShortUniqueId({ length: 4, dictionary: "number" });
-        const currentUniqueId = uniqueNumId.rnd();
-
-        await Otp.create({ email: email, otp: currentUniqueId, otp_expiry: new Date(Date.now() + 20 * 60 * 1000) });
-
-        await sendOtpForUserSignup({ email: email, otp: currentUniqueId });
-
-        sendResponse(res, 200, "OTP Sent Successfully", currentUniqueId);
-
-    } catch (error) {
-        return next(new ErrorHandler(error.message, 500));
+    const emailExist = await User.findOne({ email });
+    if (emailExist) {
+      return res.status(400).json({ status: false, message: "Email already exists" });
     }
-})
+
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+
+    await Otp.create({
+      email,
+      otp,
+      otp_expiry: new Date(Date.now() + 20 * 60 * 1000) // 20 minutes
+    });
+
+    await sendOtpForUserSignup({ email, otp });
+
+    sendResponse(res, 200, "OTP Sent Successfully", otp);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
 
 
 export const verifyOtpToUserRegister = catchAsyncErrors(async (req, res, next) => {
